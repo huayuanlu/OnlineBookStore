@@ -6,11 +6,73 @@
     <meta http-equiv="Content-Type" content="text/html; charset=GB2312">
 	<title>花园路的网上书店</title>
 
-<style type="text/css">
-	/*重置浏览器的默认样式 */
-* { margin:0; padding:0;  list-style:none;}
-</style>
-
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+         
+        html {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            background: url(background.png) no-repeat 0px 0px;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            -moz-background-size: 100% 100%;
+        }
+         
+        #loginDiv {
+            width: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            background-color: rgba(75, 81, 95, 0.3);
+            box-shadow: 7px 7px 17px rgba(52, 56, 66, 0.5);
+            border-radius: 250px;
+        }
+         
+        
+        p {
+            margin-top: 30px;
+            margin-left: 20px;
+            color: azure;
+        }
+         
+        input {
+            margin-left: 15px;
+            border-radius: 5px;
+            border-style: hidden;
+            height: 30px;
+            width: 140px;
+            background-color: rgba(216, 191, 216, 0.5);
+            outline: none;
+            color: #f0edf3;
+            padding-left: 10px;
+        }
+         
+        button{
+            width: 70px;/*设置按钮宽度*/
+            height: 20px;/*设置按钮?度*/
+            color:white;/*字体颜?*/
+            background-color:cornflowerblue;/*按钮背景颜?*/
+            border-radius: 3px;/*让按钮变得圆滑?点*/
+            border-width: 0;/*消去按钮丑的边框*/
+            margin: 0;
+            outline: none;/*取消轮廓*/
+            font-family: KaiTi;/*字体设置为楷体*/
+            font-size: 6px;/*设置字体??*/
+            text-align: center;/*字体居中*/
+            cursor: pointer;/*设置?标箭头?势*/
+        }
+    </style>
+    <style type="text/css">
+        input::-ms-input-placeholder{text-align: center;}
+        input::-webkit-input-placeholder{text-align: center;}
+    </style>
 </head>
 <body>
 <div style="width: 1024px;	margin: 0 auto;	background: #eee;">
@@ -41,12 +103,12 @@
     </ul>
         <form action="${pageContext.request.contextPath }/CartServlet" enctype="multipart/form-data" target="frameName" method="post" align="left">
         <input type="hidden" name="Username" value=<%=request.getSession().getAttribute("Username")%>>
-        <button>购物中心</button>
+        &nbsp;&nbsp;<button>购物中心</button>&nbsp;&nbsp;
         </form>
 <!--        <span>&nbsp|&nbsp;</span>-->
         <form action="${pageContext.request.contextPath }/Login.jsp" enctype="multipart/form-data" target="frameName"align="left">
         <input type="hidden" name="Username" value=<%=request.getSession().getAttribute("Username")%>>
-        <button>我的账户</button>
+        &nbsp;&nbsp;<button>我的账户</button>&nbsp;&nbsp;
         </form>
     </tr>
     <tr>&nbsp;</tr>
@@ -81,7 +143,7 @@
     <form name="form_search" align="right" method="post" action="SearchServlet">
         <span style="font-size: small; color: #666; ">Search</span>
         <input type="text" name="Bookname">
-        <input type="submit">
+        <button>提交</button>
          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </form>
 </div>
@@ -90,7 +152,7 @@
 <hr/> 
 
 <!--div_PRODUCT_LIST-->
-<div style="width: 1000px; margin: 0 auto; height:60px; background: #CC7;border-radius:15px;">
+<div style="width: 1000px; margin: 0 auto; height:75px; background: #CC7;border-radius:15px;">
     <table>
     <tr>&nbsp;</tr>
     <tr>
@@ -104,13 +166,13 @@
     </table>
 </div>
 <!--div_PRODUCT_LIST-->
-          
+
 <!--showBooks-->
 <div style="width: 790px; margin: 0 auto; height:550px;">
     <tr>
         <%
             if(request.getSession().getAttribute("message")=="图书不存在"){
-                out.println(request.getSession().getAttribute("message"));
+                out.println("<script>window.alert(\"图书不存在\")</script>");  
             }
             else if(request.getSession().getAttribute("message")=="您查找的图书信息为："){
                 out.println(request.getSession().getAttribute("message"));   
@@ -144,7 +206,7 @@
     </tr>
         <%
             if(request.getSession().getAttribute("cartmessage")=="您的购物车为空"){
-                out.println(request.getSession().getAttribute("cartmessage"));   
+                out.println("<script>window.alert(\"购物车为空\")</script>");   
             }
             else if(request.getSession().getAttribute("cartmessage")=="购物车："){
                 out.println(request.getSession().getAttribute("cartmessage"));   
@@ -183,7 +245,8 @@
     </table>  
     <%
             if(request.getSession().getAttribute("Cost")!= null){
-                out.println("<a> 共花费" + request.getSession().getAttribute("Cost") + "元</a>");
+                out.println("<script>window.alert(\"消费成功\")</script>");   
+                out.println("<strong> 共花费" + request.getSession().getAttribute("Cost") + "元</strong>");
             }
             List<Orderlist> o = (List)request.getSession().getAttribute("Orderlist");
             if(o!=null){
