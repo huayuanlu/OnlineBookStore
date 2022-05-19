@@ -169,41 +169,53 @@
 <!--div_PRODUCT_LIST-->
 
 <!--showBooks-->
-<div style="width: 790px; margin: 0 auto; height:550px;">
+<div style="font-size:x-small; width: 790px; margin: 0 auto; height:550px;">
         <%
             if(request.getSession().getAttribute("message")=="图书不存在"){
                 out.println("<script>window.alert(\"图书不存在\")</script>");  
                 request.removeAttribute("message");
             }
             else if(request.getSession().getAttribute("message")=="您查找的图书信息为："){
+                int num = 0;
+                List<Bookinfo> b = (List)request.getSession().getAttribute("bookinfo");
+                if(request.getParameter("num")!=null) num = Integer.parseInt(request.getParameter("num"));
                 out.println(request.getSession().getAttribute("message"));   
+                if(num+7<b.size()){
+                    request.getSession().setAttribute("message", "您查找的图书信息为：");
+                    request.getSession().setAttribute("bookinfo", b);
+                    out.print("<form method = \"post\" action = \"/BookStore-war/Search.jsp\">");
+                    out.print("<input type=\"hidden\" name=\"num\" value= " + (num+7) + ">");
+                    out.print("<button>下一页</button>");
+                    out.print("</form>");
+                }
                 out.print("<table BORDER=5>");
                 out.println("<CAPTION>查找结果</CAPTION>");
                 out.println("<TR><TH>&nbsp;书号&nbsp;</TH><TH>&nbsp;书名&nbsp;</TH><TH>&nbsp;作者&nbsp;</TH><TH>&nbsp;价格&nbsp;</TH><TH>&nbsp;出版社&nbsp;</TH></TR>");
-                List<Bookinfo> b = (List)request.getSession().getAttribute("bookinfo");
-                for(int i=0;i<b.size();i++){
+                for(int i=num;i>num-7&&i<b.size();num++){
                     out.print("<TR><TD>");
-                    out.print(b.get(i).getIsbn());
+                    out.print(b.get(num).getIsbn());
                     out.print("</TD><TD>");
-                    out.print(b.get(i).getTitle());   
+                    out.print(b.get(num).getTitle());   
                     out.print("</TD><TD>");
-                    out.print(b.get(i).getAuthor());   
+                    out.print(b.get(num).getAuthor());   
                     out.print("</TD><TD>");
-                    out.print(b.get(i).getPrice());  
+                    out.print(b.get(num).getPrice()+ "元");  
                     out.print("</TD><TD>");
-                    out.print(b.get(i).getPress());
+                    out.print(b.get(num).getPress());
+                    out.print("</TD><TD>");
+                    out.print("<a href=\"" + b.get(num).getHref() + "\">详情</a>");
                     out.print("</TD><TD>");
                     out.print("<form name=\"Cart\" method=\"post\" action=\"CtrlServlet\">");
                     out.print("数量：<input type=\"text\" name=\"num\">");
-                    out.print("<input type=\"hidden\" name=\"ISBN\" value=" + b.get(i).getIsbn() + ">");
+                    out.print("<input type=\"hidden\" name=\"ISBN\" value=" + b.get(num).getIsbn() + ">");
                     out.print("<input type=\"hidden\" name=\"Ctrl\" value=\"Cart\">");
                     out.println("<button>加入购物车</button>");
                     out.print("</form>");
                     out.print("<TD></TR>");
-                }
+                } 
             }
             %>
-    </table>        
+    </table>
 </div>
 <!--showBooks-->
 

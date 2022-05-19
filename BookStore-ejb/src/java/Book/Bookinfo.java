@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Bookinfo.findByAuthor", query = "SELECT b FROM Bookinfo b WHERE b.author = :author"),
     @NamedQuery(name = "Bookinfo.findByPrice", query = "SELECT b FROM Bookinfo b WHERE b.price = :price"),
     @NamedQuery(name = "Bookinfo.findByPress", query = "SELECT b FROM Bookinfo b WHERE b.press = :press"),
+    @NamedQuery(name = "Bookinfo.findByHref", query = "SELECT b FROM Bookinfo b WHERE b.href = :href"),
     @NamedQuery(name = "Bookinfo.SearchByTitle", query = "SELECT b FROM Bookinfo b WHERE b.title like :title")})
 public class Bookinfo implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -59,6 +60,10 @@ public class Bookinfo implements Serializable {
     @Size(min = 1, max = 32)
     @Column(name = "PRESS")
     private String press;
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "HREF")
+    private String href;
 
     public Bookinfo() {
     }
@@ -113,6 +118,14 @@ public class Bookinfo implements Serializable {
 
     public void setPress(String press) {
         this.press = press;
+    }
+
+    public String getHref() {
+        return href;
+    }
+
+    public void setHref(String href) {
+        this.href = href;
     }
 
     @Override
