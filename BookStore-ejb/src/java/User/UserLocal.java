@@ -17,8 +17,6 @@ public interface UserLocal {
 
     String Find(String Username, String Password);
 
-    Boolean AddUser(String Username, String Password);
-
     String Find(String Username);
     
 }

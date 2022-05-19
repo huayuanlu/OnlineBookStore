@@ -168,6 +168,45 @@
 </div>
 <!--div_PRODUCT_LIST-->
 
+<!--showBooks-->
+<div style="width: 790px; margin: 0 auto; height:550px;">
+        <%
+            if(request.getSession().getAttribute("message")=="图书不存在"){
+                out.println("<script>window.alert(\"图书不存在\")</script>");  
+                request.removeAttribute("message");
+            }
+            else if(request.getSession().getAttribute("message")=="您查找的图书信息为："){
+                out.println(request.getSession().getAttribute("message"));   
+                out.print("<table BORDER=5>");
+                out.println("<CAPTION>查找结果</CAPTION>");
+                out.println("<TR><TH>&nbsp;书号&nbsp;</TH><TH>&nbsp;书名&nbsp;</TH><TH>&nbsp;作者&nbsp;</TH><TH>&nbsp;价格&nbsp;</TH><TH>&nbsp;出版社&nbsp;</TH></TR>");
+                List<Bookinfo> b = (List)request.getSession().getAttribute("bookinfo");
+                for(int i=0;i<b.size();i++){
+                    out.print("<TR><TD>");
+                    out.print(b.get(i).getIsbn());
+                    out.print("</TD><TD>");
+                    out.print(b.get(i).getTitle());   
+                    out.print("</TD><TD>");
+                    out.print(b.get(i).getAuthor());   
+                    out.print("</TD><TD>");
+                    out.print(b.get(i).getPrice());  
+                    out.print("</TD><TD>");
+                    out.print(b.get(i).getPress());
+                    out.print("</TD><TD>");
+                    out.print("<form name=\"Cart\" method=\"post\" action=\"CtrlServlet\">");
+                    out.print("数量：<input type=\"text\" name=\"num\">");
+                    out.print("<input type=\"hidden\" name=\"ISBN\" value=" + b.get(i).getIsbn() + ">");
+                    out.print("<input type=\"hidden\" name=\"Ctrl\" value=\"Cart\">");
+                    out.println("<button>加入购物车</button>");
+                    out.print("</form>");
+                    out.print("<TD></TR>");
+                }
+            }
+            %>
+    </table>        
+</div>
+<!--showBooks-->
+
 <!--footer_begin-->
 <footer style="width:1024px; margin: 0 auto; height:60px;  background: #CCA;">
     <table>

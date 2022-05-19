@@ -31,28 +31,6 @@ public class User implements UserLocal {
         return null;
     }
 
-    @Override
-    public Boolean AddUser(String Username, String Password) {
-        try{
-            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-            java.sql.Connection conn =	java.sql.DriverManager.getConnection("jdbc:derby://localhost:1527/BookStore", "app", "app");
-            java.sql.Statement st = conn.createStatement();
-            java.sql.ResultSet rs = st.executeQuery("select * from Login where username= '" + Username + "'");
-            if(rs.next())   {
-                conn.close();
-                st.close();
-                return false;
-            }
-            else {
-                st.executeQuery("insert into Login values('" + Username + "','" + Password + "')");
-                conn.close();
-                st.close();
-                return true;
-            }
-        }
-        catch(Exception e){}
-        return false;
-    }
 
     @Override
     public String Find(String Username) {

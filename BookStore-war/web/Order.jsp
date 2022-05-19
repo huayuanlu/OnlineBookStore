@@ -168,6 +168,46 @@
 </div>
 <!--div_PRODUCT_LIST-->
 
+<!--showBooks-->
+<div style="width: 790px; margin: 0 auto; height:550px;">
+    <%
+            if(request.getSession().getAttribute("Cost")!= null){
+                out.println("<script>window.alert(\"消费成功\")</script>");   
+                out.println("<strong> 共花费" + request.getSession().getAttribute("Cost") + "元</strong>");
+                request.removeAttribute("Cost");
+            }
+            List<Orderlist> o = (List)request.getSession().getAttribute("Orderlist");
+            if(o!=null){
+                out.print("<table BORDER=7>");
+                out.println("<CAPTION>订单记录</CAPTION>");
+                out.println("<TR><TH>&nbsp;订单编号&nbsp;</TH><TH>&nbsp;书号&nbsp;"
+                        + "</TH><TH>&nbsp;书名&nbsp;</TH><TH>&nbsp;用户&nbsp;"
+                        + "</TH><TH>&nbsp;数量&nbsp;</TH><TH>&nbsp;价格&nbsp;"
+                        + "</TH><TH>&nbsp;时间&nbsp;</TH></TR>");
+                for(int i=0;i<o.size();i++){
+                    Orderlist tmp = o.get(i);
+                    out.print("<TR><TD>");
+                    out.print(tmp.getOrderid());
+                    out.print("</TD><TD>");
+                    out.print(tmp.getIsbn());   
+                    out.print("</TD><TD>");
+                    out.print(tmp.getTitle());   
+                    out.print("</TD><TD>");
+                    out.print(tmp.getUsername());  
+                    out.print("</TD><TD>");
+                    out.print(tmp.getCartnum());
+                    out.print("</TD><TD>");
+                    out.print(tmp.getCost());  
+                    out.print("</TD><TD>");
+                    out.print(tmp.getTime());  
+                    out.print("<TD></TR>");
+                }
+            }
+    %>
+    </table>  
+</div>
+<!--showBooks-->
+
 <!--footer_begin-->
 <footer style="width:1024px; margin: 0 auto; height:60px;  background: #CCA;">
     <table>

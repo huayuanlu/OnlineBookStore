@@ -103,11 +103,13 @@
     </ul>
         <form action="${pageContext.request.contextPath }/CtrlServlet" enctype="multipart/form-data" target="frameName" method="post" align="left">
         <input type="hidden" name="Username" value=<%=request.getSession().getAttribute("Username")%>>
+        <input type="hidden" name="Ctrl" value="Cart">
         &nbsp;&nbsp;<button>购物中心</button>&nbsp;&nbsp;
         </form>
 <!--        <span>&nbsp|&nbsp;</span>-->
         <form action="${pageContext.request.contextPath }/Login.jsp" enctype="multipart/form-data" target="frameName"align="left">
         <input type="hidden" name="Username" value=<%=request.getSession().getAttribute("Username")%>>
+        <input type="hidden" name="Ctrl" value="Login">
         &nbsp;&nbsp;<button>我的账户</button>&nbsp;&nbsp;
         </form>
     </tr>
@@ -167,6 +169,53 @@
     </table>
 </div>
 <!--div_PRODUCT_LIST-->
+
+<!--showBooks-->
+<div style="width: 790px; margin: 0 auto; height:550px;">
+        <%
+            if(request.getSession().getAttribute("cartmessage")=="您的购物车为空"){
+                out.println("<script>window.alert(\"购物车为空\")</script>");   
+            }
+            else if(request.getSession().getAttribute("cartmessage")=="购物车："){
+                out.println(request.getSession().getAttribute("cartmessage"));
+                out.print("<table BORDER=6>");
+                out.println("<CAPTION>购物车</CAPTION>");
+                out.println("<TR><TH>&nbsp;书号&nbsp;</TH><TH>&nbsp;书名&nbsp;</TH><TH>&nbsp;作者&nbsp;</TH><TH>&nbsp;价格&nbsp;</TH><TH>&nbsp;出版社&nbsp;</TH><TH>&nbsp;数量&nbsp;</TH></TR>");
+                List<Bookinfo> b = (List)request.getSession().getAttribute("cartinfo");
+                List<Integer> num = (List)request.getSession().getAttribute("num");
+                for(int i=0;i<b.size();i++){
+                    out.println("<TR><TD>");
+                    out.println(b.get(i).getIsbn());
+                    out.println("</TD><TD>");
+                    out.println(b.get(i).getTitle());   
+                    out.println("</TD><TD>");
+                    out.println(b.get(i).getAuthor());   
+                    out.println("</TD><TD>");
+                    out.println(b.get(i).getPrice());  
+                    out.println("</TD><TD>");
+                    out.println(b.get(i).getPress());
+                    out.println("</TD><TD>");
+                    out.println(num.get(i));  
+                    out.println("</TD><TD>");
+                    out.println("<form method=\"post\" action=\"CtrlServlet\">");
+                    out.println("<input type=\"hidden\" name=\"ISBN\" value=" + b.get(i).getIsbn() + ">");
+                    out.println("<input type=\"hidden\" name=\"delete\" value=1>");
+                    out.println("<input type=\"hidden\" name=\"Ctrl\" value=\"Cart\">");
+                    out.println("<button>移除</button>");
+                    out.println("</form>");
+                    out.println("<TD></TR>");
+                }%>
+                <form method="post" action="CtrlServlet">
+                <% out.println("<input type=\"hidden\" name=\"Username\" value=" + request.getSession().getAttribute("Username") + ">"); %>
+                <% out.println("<input type=\"hidden\" name=\"Ctrl\" value=\"Order\">"); %>
+                <button>结算</button>
+                </form>
+                <%
+                out.println("</table> ");
+            }
+           %>
+</div>
+<!--showBooks-->
 
 <!--footer_begin-->
 <footer style="width:1024px; margin: 0 auto; height:60px;  background: #CCA;">

@@ -2,11 +2,11 @@
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>LoginServlet</servlet-class>
+        <servlet-class>Nouse.LoginServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SearchServlet</servlet-name>
-        <servlet-class>SearchServlet</servlet-class>
+        <servlet-class>Nouse.SearchServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CartServlet</servlet-name>
@@ -14,7 +14,11 @@
     </servlet>
     <servlet>
         <servlet-name>OrderServlet</servlet-name>
-        <servlet-class>OrderServlet</servlet-class>
+        <servlet-class>Nouse.OrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CtrlServlet</servlet-name>
+        <servlet-class>CtrlServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>OrderServlet</servlet-name>
         <url-pattern>/OrderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CtrlServlet</servlet-name>
+        <url-pattern>/CtrlServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
