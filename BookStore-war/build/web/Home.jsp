@@ -21,24 +21,13 @@
             background-color:#e3edcd;
             -moz-background-size: 100% 100%;
         }
-         
-        #loginDiv {
-            width: 400px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 400px;
-            background-color: rgba(75, 81, 95, 0.3);
-            box-shadow: 7px 7px 17px rgba(52, 56, 66, 0.5);
-            border-radius: 250px;
-        }
         
         p {
-            margin-top: 30px;
+            margin-top: 15px;
             margin-left: 20px;
             color: azure;
         }
-         
+        
         input {
             margin-left: 15px;
             border-radius: 5px;
@@ -62,6 +51,35 @@
             outline: none;/*取消轮廓*/
             font-family: KaiTi;/*字体设置为楷体*/
             font-size: 6px;/*设置字体??*/
+            text-align: center;/*字体居中*/
+            cursor: pointer;/*设置?标箭头?势*/
+        }
+        
+        .form_search input{
+            margin-left: 20px;
+            margin-top: 200px;
+            border-radius: 10px;
+            border-style: hidden;
+            height: 50px;
+            width: 400px;
+            padding-left: 10px;
+            background-color: #a3c3bc;
+            font-family: sans-serif;
+            font-size: 20px;
+            text-align: left;
+        }
+        
+        .form_search button{
+            width: 70px;/*设置按钮宽度*/
+            height: 48px;/*设置按钮?度*/
+            color:black;
+            background-color:#ffff33;/*按钮背景颜?*/
+            border-radius: 5px;/*让按钮变得圆滑?点*/
+            border-width: 0.5;/*消去按钮丑的边框*/
+            margin: 0;
+            outline: #191665;
+            font-family: KaiTi;/*字体设置为楷体*/
+            font-size: 15px;/*设置字体??*/
             text-align: center;/*字体居中*/
             cursor: pointer;/*设置?标箭头?势*/
         }
@@ -138,18 +156,6 @@
 </nav>
 <!--nav_end-->
 
-<!--div_search-->
-<div style="width: 1000px; margin: 0 auto; height:25px; background: #CC7;">
-    <form name="form_search" align="right" method="post" action="CtrlServlet">
-        <span style="font-size: small; color: #666; ">Search</span>
-        <input type="text" name="Bookname">
-        <input type="hidden" name="Ctrl" value="Search">
-        <button>提交</button>
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    </form>
-</div>
-<!--div_search-->
-
 <hr/> 
 
 <!--div_PRODUCT_LIST-->
@@ -158,8 +164,8 @@
     <tr>&nbsp;</tr>
     <tr>
     <p>
-        <span text="center" style="font-size: medium; color: #fff; ">
-        <strong>&nbsp;&nbsp;&nbsp;PRODUCT LIST</strong>
+        <span text="center" style="font-size: larger; color: #fff; ">
+            <strong>&nbsp;&nbsp;&nbsp;PRODUCT LIST</strong>
         </span>
     </p>
     </tr>
@@ -167,7 +173,18 @@
     </table>
 </div>
 <!--div_PRODUCT_LIST-->
-
+<div style="width: 790px; margin: 0 auto; height:550px;"> 
+   
+    <form class="form_search" align="center" method="post" action="CtrlServlet">
+        <span style="font-size: 44px;color: #666;">
+            <strong>&nbsp;&nbsp;&nbsp;Search</strong>
+        </span>
+        <input type="text" name="Bookname">
+        <input type="hidden" name="Ctrl" value="Search">
+        <button>搜索</button>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </form>
+</div>
 <!--footer_begin-->
 <footer style="width:1024px; margin: 0 auto; height:60px;  background: #CCA;">
     <table>
@@ -176,8 +193,7 @@
     <img src="images/logo.png" align="left">
     </td>
     <td>
-    <p>CONTACT US</p>
-    <p align="center">copyright 2008 &copy; BookStore All Rights RESSERVED</p>
+    <p>@花园路的网上书店</p>
     </td>
 
     </tr>

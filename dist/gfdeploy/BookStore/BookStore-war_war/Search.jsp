@@ -36,7 +36,8 @@
             width: 120px;
             background-color: #33ffff;
             outline: none;
-            color: #f0edf3;
+            color: black;
+            font-family: KaiTi;
             padding-left: 10px;
         }
          
@@ -167,6 +168,17 @@
                 List<Bookinfo> b = (List)request.getSession().getAttribute("bookinfo");
                 if(request.getParameter("num")!=null) num = Integer.parseInt(request.getParameter("num"));
                 out.println(request.getSession().getAttribute("message"));   
+                if(num-7>=0){
+                    request.getSession().setAttribute("message", "您查找的图书信息为：");
+                    request.getSession().setAttribute("bookinfo", b);
+                    out.print("<form method = \"post\" action = \"/BookStore-war/Search.jsp\">");
+                    out.print("<input type=\"hidden\" name=\"num\" value= " + (num-7) + ">");
+                    out.print("<button>上一页</button>");
+                    out.print("</form>");
+                }
+                else {
+                    request.removeAttribute("num");
+                }
                 if(num+7<b.size()){
                     request.getSession().setAttribute("message", "您查找的图书信息为：");
                     request.getSession().setAttribute("bookinfo", b);
