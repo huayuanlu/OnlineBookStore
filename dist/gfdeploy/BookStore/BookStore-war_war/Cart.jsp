@@ -21,14 +21,13 @@
             background-color:#e3edcd;
             -moz-background-size: 100% 100%;
         }
-         
         
         p {
-            margin-top: 30px;
+            margin-top: 15px;
             margin-left: 20px;
             color: azure;
         }
-         
+        
         input {
             margin-left: 15px;
             border-radius: 5px;
@@ -55,10 +54,44 @@
             text-align: center;/*字体居中*/
             cursor: pointer;/*设置?标箭头?势*/
         }
+        
+        .form_search input{
+            margin-left: 0;
+            margin-top: 240px;
+            border-radius: 10px;
+            border-style: hidden;
+            height: 50px;
+            width: 500px;
+            padding-left: 10px;
+            background-color: #a3c3bc;
+            font-family: sans-serif;
+            font-size: 20px;
+            text-align: left;
+        }
+        
+        .form_search button{
+            text-decoration: none;
+            position: absolute;
+            width: 90px;/*设置按钮宽度*/
+            height: 50px;/*设置按钮?度*/
+            color:black;
+            border-radius: 15px;/*让按钮变得圆滑?点*/
+            border-width: 0.5;/*消去按钮丑的边框*/
+            margin-top: 240px;
+            margin-left: -70px; 
+            outline: #191665;
+            font-family: KaiTi;/*字体设置为楷体*/
+            font-size: 15px;/*设置字体??*/
+            text-align: center;/*字体居中*/
+            cursor: pointer;/*设置?标箭头?势*/
+            background: linear-gradient(90deg,#03a9f4,#f441a5,#ffeb3b,#03a9f3);
+            background-size: 400%;
+            color: #ffffff;
+        }
     </style>
     <style type="text/css">
-        input::-ms-input-placeholder{text-align: center;}
-        input::-webkit-input-placeholder{text-align: center;}
+        input::-ms-input-placeholder{text-align: left;}
+        input::-webkit-input-placeholder{text-align: left;}
     </style>
 </head>
 <body>
@@ -161,6 +194,13 @@
         <%
             if(request.getSession().getAttribute("cartmessage")=="您的购物车为空"){
                 out.println("<script>window.alert(\"购物车为空\")</script>");   
+                out.println("<form class=\"form_search\" align=\"center\" method=\"post\" action=\"CtrlServlet\">");
+                out.println("<span style=\"font-size: 80px;color: #666;position: absolute;margin-top: 80px;margin-left:28px\">");
+                out.println("<strong>&nbsp;&nbsp;&nbsp;Search</strong></span>");
+                out.println("<input type=\"text\" name=\"Bookname\" placeholder=\"输入你想搜索的书名\">");
+                out.println("<input type=\"hidden\" name=\"Ctrl\" value=\"Search\">");
+                out.println("<button style=\"font-size: medium\">搜索</button>");
+                out.println("</form>");
             }
             else if(request.getSession().getAttribute("cartmessage")=="购物车："){
                 out.println(request.getSession().getAttribute("cartmessage"));
