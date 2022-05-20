@@ -18,24 +18,10 @@
             overflow: hidden;
             margin: 0;
             padding: 0;
-            background: url(background.png) no-repeat 0px 0px;
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
+            background-color:#e3edcd;
             -moz-background-size: 100% 100%;
         }
-         
-        #loginDiv {
-            width: 400px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 400px;
-            background-color: rgba(75, 81, 95, 0.3);
-            box-shadow: 7px 7px 17px rgba(52, 56, 66, 0.5);
-            border-radius: 250px;
-        }
-         
-        
+
         p {
             margin-top: 30px;
             margin-left: 20px;
@@ -101,7 +87,8 @@
             %>
 
     </ul>
-        <form action="${pageContext.request.contextPath }/CtrlServlet" enctype="multipart/form-data" target="frameName" method="post" align="left">
+        <form action="CtrlServlet"method="post">
+        <input type="hidden" name="Ctrl" value="Cart">
         <input type="hidden" name="Username" value=<%=request.getSession().getAttribute("Username")%>>
         &nbsp;&nbsp;<button>购物中心</button>&nbsp;&nbsp;
         </form>
@@ -173,7 +160,7 @@
     <%
             if(request.getSession().getAttribute("Cost")!= null){
                 out.println("<script>window.alert(\"消费成功\")</script>");   
-                out.println("<strong> 共花费" + request.getSession().getAttribute("Cost") + "元</strong>");
+                out.println("<strong> 本次共花费" + request.getSession().getAttribute("Cost") + "元</strong>");
                 request.removeAttribute("Cost");
             }
             List<Orderlist> o = (List)request.getSession().getAttribute("Orderlist");

@@ -18,9 +18,7 @@
             overflow: hidden;
             margin: 0;
             padding: 0;
-            background: url(background.png) no-repeat 0px 0px;
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
+            background-color:#e3edcd;
             -moz-background-size: 100% 100%;
         }
          
@@ -34,7 +32,6 @@
             box-shadow: 7px 7px 17px rgba(52, 56, 66, 0.5);
             border-radius: 250px;
         }
-         
         
         p {
             margin-top: 30px;
@@ -88,7 +85,9 @@
                 out.print("<a>欢迎用户&nbsp;<span style=\"color: red \">"+request.getSession().getAttribute("Username")+ "</span></a>");
                 session.setAttribute("Username", request.getSession().getAttribute("Username"));
             }
-            else     out.print("<a><span style=\"color: red \">请先登录&nbsp;</span></a>");
+            else     {
+                out.print("<a><span style=\"color: red \">请先登录&nbsp;</span></a>");
+            }
             if(request.getSession().getAttribute("ClearAll")== "1"){
                 session.removeAttribute("message");
                 session.removeAttribute("bookinfo");
@@ -101,12 +100,13 @@
             %>
 
     </ul>
-        <form action="${pageContext.request.contextPath }/CtrlServlet" enctype="multipart/form-data" target="frameName" method="post" align="left">
+        <form action="CtrlServlet"method="post">
+        <input type="hidden" name="Ctrl" value="Cart">
         <input type="hidden" name="Username" value=<%=request.getSession().getAttribute("Username")%>>
         &nbsp;&nbsp;<button>购物中心</button>&nbsp;&nbsp;
         </form>
 <!--        <span>&nbsp|&nbsp;</span>-->
-        <form action="${pageContext.request.contextPath }/Login.jsp" enctype="multipart/form-data" target="frameName"align="left">
+        <form action="/BookStore-war/Login.jsp" enctype="multipart/form-data" target="frameName"align="left">
         <input type="hidden" name="Username" value=<%=request.getSession().getAttribute("Username")%>>
         &nbsp;&nbsp;<button>我的账户</button>&nbsp;&nbsp;
         </form>

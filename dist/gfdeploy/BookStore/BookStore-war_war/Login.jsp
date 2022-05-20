@@ -1,77 +1,103 @@
-<%-- 
-    Document   : Login
-    Created on : 2022-5-6, 17:18:38
-    Author     : X
---%>
-
 <%@ page language="java" contentType="text/html; charset=GB2312"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=GB2312">
-    <title>登录</title>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
          
-        .form-group{
+        html {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            background: url(background.png) no-repeat 0px 0px;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            -moz-background-size: 100% 100%;
+        }
+         
+        body {
+            background-color:#e3edcd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+         
+        #loginDiv {
+            width: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            background-color: rgba(75, 81, 95, 0.3);
+            box-shadow: 7px 7px 17px rgba(52, 56, 66, 0.5);
+            border-radius: 250px;
+        }
+         
+        
+        p {
+            margin-top: 30px;
+            margin-left: 20px;
+            color: azure;
+        }
+         
+        input {
             margin-left: 15px;
             border-radius: 5px;
             border-style: hidden;
             height: 30px;
             width: 140px;
-            background-color: DodgerBlue;;
+            background-color: rgba(216, 191, 216, 0.5);
             outline: none;
             color: #f0edf3;
             padding-left: 10px;
         }
-         .button{
-            width: 70px;/*设置按钮宽度*/
-            height: 20px;/*设置按钮?度*/
-            color:white;/*字体颜?*/
-            background-color:#99ffff;/*按钮背景颜?*/
-            border-radius: 3px;/*让按钮变得圆滑?点*/
-            border-width: 0;/*消去按钮丑的边框*/
-            margin: 0;
-            outline: none;/*取消轮廓*/
-            font-family: KaiTi;/*字体设置为楷体*/
-            font-size: 6px;/*设置字体??*/
-            text-align: center;/*字体居中*/
-            cursor: pointer;/*设置?标箭头?势*/
-        }
-        .Container{
-            width:500px;height:500px;box-shadow:0 0 5px #000;position:relative;
-        }
-        .Login{
-            width:120px;height:100px;background:#99ff99;
-
-            position:absolute;left:0;right:0;top:0;bottom:0;margin:auto;
+         
+        button {
+            border-color: cornsilk;
+            background-color: rgba(100, 149, 237, .7);
+            color: aliceblue;
+            border-style: hidden;
+            border-radius: 5px;
+            width: 100px;
+            height: 31px;
+            font-size: 16px;
         }
     </style>
-  </head>
-  <body>
-  	<div class="Container" style="width: 400px;">
-  		<h3 style="text-align: center;">登录</h3>
-                <%
+    <style type="text/css">
+        input::-ms-input-placeholder{text-align: center;}
+        input::-webkit-input-placeholder{text-align: center;}
+    </style>
+</head>
+  
+ <body>
+     <%
                     if(session.getAttribute("error")=="true"){
                         out.print("<script>window.alert(\"输入用户名密码错误\")</script>");
                         session.setAttribute("error", "null");
                     }
                     %>
-        <form class="Login" action="${pageContext.request.contextPath }/CtrlServlet" method="post">
-	      <div class="form-group">
-	        <label for="user">用户名：</label>
-	        <input type="text" name="Username" class="form-control" id="user" placeholder="请输入用户名"/>
-	      </div>
-	      <div class="form-group">
-	        <label for="password">密码：</label>
-                <input type="text" name="Password" class="form-control" id="user" placeholder="请输入密码"/>
-	      </div>
-	      <hr/>
-	      <div>
+    <div id="loginDiv">
+        <form action="CtrlServlet" id="form" method="post">
+            
+            <h1 style="text-align: center;color: aliceblue;">立即登录</h1>
+            <p>用户名:<input type="text" name="Username" class="form-control" id="user" placeholder="请输入用户名"></p>
+            
+            <p>密码:<input id="password" name="Password" type="password" placeholder="请输入密码"></p>
+            <div style="text-align: center;margin-top: 30px;">
                 <input type="hidden" name="Ctrl" value="Login">
-                <input class="button" type="submit" value="登录">
-	       </div>
-	  </form>
-  	</div>
-  </body>
+                <button>登录</button> 
+            </div>
+        </form>
+    </div>
+</body>
 </html>

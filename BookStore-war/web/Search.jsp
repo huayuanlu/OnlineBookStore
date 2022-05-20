@@ -18,24 +18,10 @@
             overflow: hidden;
             margin: 0;
             padding: 0;
-            background: url(background.png) no-repeat 0px 0px;
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
+            background-color:#e3edcd;
             -moz-background-size: 100% 100%;
         }
-         
-        #loginDiv {
-            width: 400px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 400px;
-            background-color: rgba(75, 81, 95, 0.3);
-            box-shadow: 7px 7px 17px rgba(52, 56, 66, 0.5);
-            border-radius: 250px;
-        }
-         
-        
+
         p {
             margin-top: 30px;
             margin-left: 20px;
@@ -99,13 +85,14 @@
                 session.setAttribute("ClearAll", "0");
             }
             %>
-
     </ul>
-        <form action="${pageContext.request.contextPath }/CtrlServlet" enctype="multipart/form-data" target="frameName" method="post" align="left">
+    
+        <form action="CtrlServlet"method="post">
+        <input type="hidden" name="Ctrl" value="Cart">
         <input type="hidden" name="Username" value=<%=request.getSession().getAttribute("Username")%>>
         &nbsp;&nbsp;<button>购物中心</button>&nbsp;&nbsp;
         </form>
-<!--        <span>&nbsp|&nbsp;</span>-->
+
         <form action="${pageContext.request.contextPath }/Login.jsp" enctype="multipart/form-data" target="frameName"align="left">
         <input type="hidden" name="Username" value=<%=request.getSession().getAttribute("Username")%>>
         &nbsp;&nbsp;<button>我的账户</button>&nbsp;&nbsp;
@@ -169,7 +156,7 @@
 <!--div_PRODUCT_LIST-->
 
 <!--showBooks-->
-<div style="font-size:x-small; width: 790px; margin: 0 auto; height:550px;">
+<div style="font-size:x-small; width: 950px; margin: 0 auto; height:550px;">
         <%
             if(request.getSession().getAttribute("message")=="图书不存在"){
                 out.println("<script>window.alert(\"图书不存在\")</script>");  
@@ -188,10 +175,13 @@
                     out.print("<button>下一页</button>");
                     out.print("</form>");
                 }
-                out.print("<table BORDER=5>");
+                else {
+                    request.removeAttribute("num");
+                }
+                out.print("<table BORDER=3>");
                 out.println("<CAPTION>查找结果</CAPTION>");
                 out.println("<TR><TH>&nbsp;书号&nbsp;</TH><TH>&nbsp;书名&nbsp;</TH><TH>&nbsp;作者&nbsp;</TH><TH>&nbsp;价格&nbsp;</TH><TH>&nbsp;出版社&nbsp;</TH></TR>");
-                for(int i=num;i>num-7&&i<b.size();num++){
+                for(int i=num;(i>num-7)&&(num<b.size());num++){
                     out.print("<TR><TD>");
                     out.print(b.get(num).getIsbn());
                     out.print("</TD><TD>");
@@ -209,7 +199,7 @@
                     out.print("数量：<input type=\"text\" name=\"num\">");
                     out.print("<input type=\"hidden\" name=\"ISBN\" value=" + b.get(num).getIsbn() + ">");
                     out.print("<input type=\"hidden\" name=\"Ctrl\" value=\"Cart\">");
-                    out.println("<button>加入购物车</button>");
+                    out.print("<button>加入购物车</button>");
                     out.print("</form>");
                     out.print("<TD></TR>");
                 } 
