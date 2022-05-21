@@ -64,17 +64,17 @@
 <div style="width: 1024px;	margin: 0 auto;	background: #eee;">
 
 <!--header_begin-->
-<header style="width: 1024px; height: 70px;">
+<header style="width: 1024px; height: 70px; background:#f0edf3">
     <table>
     <tr>&nbsp;</tr>
     <tr>
     <ul align="center">
             <%
             if(request.getSession().getAttribute("Username")!=null){
-                out.print("<a>欢迎用户&nbsp;<span style=\"color: red \">"+request.getSession().getAttribute("Username")+ "</span></a>");
+                out.print("<a style=\"font-size:30px\">欢迎用户&nbsp;<span style=\"color: red \">"+request.getSession().getAttribute("Username")+ "</span></a>");
                 session.setAttribute("Username", request.getSession().getAttribute("Username"));
             }
-            else     out.print("<a><span style=\"color: red \">请先登录&nbsp;</span></a>");
+            else     out.print("<a style=\"font-size:30px\"><span style=\"color: red \">请先登录&nbsp;</span></a>");
             if(request.getSession().getAttribute("ClearAll")== "1"){
                 session.removeAttribute("message");
                 session.removeAttribute("bookinfo");
@@ -90,12 +90,12 @@
         <form action="CtrlServlet"method="post">
         <input type="hidden" name="Ctrl" value="Cart">
         <input type="hidden" name="Username" value=<%=request.getSession().getAttribute("Username")%>>
-        &nbsp;&nbsp;<button>购物中心</button>&nbsp;&nbsp;
+        &nbsp;&nbsp;<button style="margin-top:10px;">购物中心</button>&nbsp;&nbsp;
         </form>
 <!--        <span>&nbsp|&nbsp;</span>-->
         <form action="${pageContext.request.contextPath }/Login.jsp" enctype="multipart/form-data" target="frameName"align="left">
         <input type="hidden" name="Username" value=<%=request.getSession().getAttribute("Username")%>>
-        &nbsp;&nbsp;<button>我的账户</button>&nbsp;&nbsp;
+        &nbsp;&nbsp;<button style="margin-top:10px;">我的账户</button>&nbsp;&nbsp;
         </form>
     </tr>
     <tr>&nbsp;</tr>
@@ -156,7 +156,7 @@
 <!--div_PRODUCT_LIST-->
 
 <!--showBooks-->
-<div style="width: 790px; margin: 0 auto; height:550px;">
+<div style="width: 790px; margin: 0 auto; height:550px; background:#f0edf3">
     <%
             if(request.getSession().getAttribute("Cost")!= null){
                 out.println("<script>window.alert(\"消费成功\")</script>");   

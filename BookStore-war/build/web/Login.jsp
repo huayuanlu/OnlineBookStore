@@ -71,6 +71,7 @@
             width: 100px;
             height: 31px;
             font-size: 16px;
+            cursor: pointer;
         }
     </style>
     <style type="text/css">
