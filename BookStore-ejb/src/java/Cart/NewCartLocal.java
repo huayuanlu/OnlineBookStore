@@ -13,14 +13,12 @@ import javax.ejb.Local;
  * @author X
  */
 @Local
-public interface CartLocal {
-
-    Cart ShowCart(String Username);
+public interface NewCartLocal { 
+    NewCart ShowCart(String Username);
 
     void AddCart(String Username, int ISBN, int num);
 
     void DeleteCart(String Username, int ISBN);
 
     void DeleteAll(String Username);
-    
 }

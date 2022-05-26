@@ -6,12 +6,11 @@
 
 import Book.Bookinfo;
 import Book.BookinfoFacadeLocal;
-import Cart.Cart;
-import Cart.CartLocal;
+import Cart.NewCart;
+import Cart.NewCartLocal;
 import Order.OrderlistFacadeLocal;
 import User.UserLocal;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -28,11 +27,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CtrlServlet extends HttpServlet {
 @EJB
+    private NewCartLocal cart;
+@EJB
     private UserLocal user;
 @EJB
     private BookinfoFacadeLocal bookinfoFacade;
-@EJB
-    private CartLocal cart;
 @EJB
     private OrderlistFacadeLocal orderlistFacade;
 @Override
@@ -76,15 +75,25 @@ public class CtrlServlet extends HttpServlet {
             String Username = request.getSession().getAttribute("Username").toString();
             if(request.getParameter("num")!= null){
                 int CartNum = Integer.parseInt(request.getParameter("num"));
-                int ISBN = Integer.parseInt(request.getParameter("ISBN"));
-                cart.AddCart(Username, ISBN, CartNum);
+                if(CartNum<=0){
+                    request.getSession().setAttribute("cartmessage", "请正确输入购买数量");
+                    request.getRequestDispatcher("/Cart.jsp").forward(request, response);
+                }
+                else{ 
+                    int ISBN = Integer.parseInt(request.getParameter("ISBN"));
+                    cart.AddCart(Username, ISBN, CartNum);
+                }
+            }
+            else{
+                request.getSession().setAttribute("cartmessage", "请正确输入购买数量");
+                request.getRequestDispatcher("/Cart.jsp").forward(request, response);
             }
             if(request.getParameter("delete")!=null){
                 int ISBN = Integer.parseInt(request.getParameter("ISBN"));
                 cart.DeleteCart(Username, ISBN);
                 request.getSession().setAttribute("delete", "null");
             }
-            Cart c = cart.ShowCart(Username);
+            NewCart c = cart.ShowCart(Username);
             if(!c.getISBN().isEmpty() ){
                 for(int i=0;i<c.getISBN().size();i++){
                     num.add(c.getNum().get(i));
@@ -102,7 +111,7 @@ public class CtrlServlet extends HttpServlet {
         /************************************ OrderServlet ***********************************/
         else if("Order".equals(request.getParameter("Ctrl"))){
             String Username = request.getSession().getAttribute("Username").toString();
-            Cart c = cart.ShowCart(Username);
+            NewCart c = cart.ShowCart(Username);
             double sum = 0;
             if(!c.getISBN().isEmpty()){
                 for(int i=0;i<c.getISBN().size();i++){

@@ -202,6 +202,16 @@
                 out.println("<button style=\"font-size: medium\">搜索</button>");
                 out.println("</form>");
             }
+            else if(request.getSession().getAttribute("cartmessage")=="请正确输入购买数量"){
+                out.println("<script>window.alert(\"请正确输入购买数量\")</script>");   
+                out.println("<form class=\"form_search\" align=\"center\" method=\"post\" action=\"CtrlServlet\">");
+                out.println("<span style=\"font-size: 80px;color: #666;position: absolute;margin-top: 80px;margin-left:28px\">");
+                out.println("<strong>&nbsp;&nbsp;&nbsp;Search</strong></span>");
+                out.println("<input type=\"text\" name=\"Bookname\" placeholder=\"输入你想搜索的书名\">");
+                out.println("<input type=\"hidden\" name=\"Ctrl\" value=\"Search\">");
+                out.println("<button style=\"font-size: medium\">搜索</button>");
+                out.println("</form>");
+            }
             else if(request.getSession().getAttribute("cartmessage")=="购物车："){
                 out.println(request.getSession().getAttribute("cartmessage"));
                 out.print("<table BORDER=6>");

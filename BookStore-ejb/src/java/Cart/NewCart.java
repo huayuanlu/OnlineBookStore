@@ -5,25 +5,26 @@
  */
 
 package Cart;
-import java.util.List;
-import java.util.LinkedList;
-import javax.ejb.Stateless;
-import java.lang.ClassNotFoundException;
+
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
+import javax.ejb.Stateless;
+
 /**
  *
  * @author X
  */
 @Stateless
-public class Cart implements CartLocal {
+public class NewCart implements NewCartLocal {
     String Username;
     List<Integer> num;
     List<Integer> ISBN;
     
-    public Cart() {
+    public NewCart() {
     }
 
-    public Cart(String Username, List<Integer> num, List<Integer> ISBN) {
+    public NewCart(String Username, List<Integer> num, List<Integer> ISBN) {
         this.Username = Username;
         this.num = num;
         this.ISBN = ISBN;
@@ -55,10 +56,10 @@ public class Cart implements CartLocal {
 
     
     @Override
-    public Cart ShowCart(String Username) {
+    public NewCart ShowCart(String Username) {
         List<Integer> num = new LinkedList<>();
         List<Integer> ISBN = new LinkedList<>();
-        Cart UserCart = new Cart(Username,num,ISBN);
+        NewCart UserCart = new NewCart(Username,num,ISBN);
         UserCart.setUsername(Username);
         try{
             Class.forName("org.apache.derby.jdbc.ClientDriver");
@@ -116,6 +117,4 @@ public class Cart implements CartLocal {
         }
         catch(SQLException | ClassNotFoundException e){}
     }
-    
-    
 }
