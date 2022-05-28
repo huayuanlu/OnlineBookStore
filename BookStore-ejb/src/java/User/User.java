@@ -6,6 +6,7 @@
 
 package User;
 
+import java.sql.SQLException;
 import javax.ejb.Stateless;
 
 /**
@@ -21,13 +22,13 @@ public class User implements UserLocal {
     public String Find(String Username, String Password) {
         try{
             Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-            java.sql.Connection conn =	java.sql.DriverManager.getConnection("jdbc:derby://localhost:1527/BookStore", "app", "app");
+            java.sql.Connection conn =	java.sql.DriverManager.getConnection("jdbc:derby://localhost:1527/NewBookStore", "app", "app");
             java.sql.Statement st = conn.createStatement();
             java.sql.ResultSet rs = st.executeQuery("select * from Login where username= '" + Username + "' and password='" + Password + "'");
             if(rs.next())   return Username;
             else return null;
         }
-        catch(Exception e){}
+        catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e){}
         return null;
     }
 
@@ -36,13 +37,13 @@ public class User implements UserLocal {
     public String Find(String Username) {
         try{
             Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-            java.sql.Connection conn =	java.sql.DriverManager.getConnection("jdbc:derby://localhost:1527/BookStore", "app", "app");
+            java.sql.Connection conn =	java.sql.DriverManager.getConnection("jdbc:derby://localhost:1527/NewBookStore", "app", "app");
             java.sql.Statement st = conn.createStatement();
             java.sql.ResultSet rs = st.executeQuery("select * from Login where username= '" + Username + "'");
             if(rs.next())   return Username;
             else return null;
         }
-        catch(Exception e){}
+        catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e){}
         return null;
     }
 }

@@ -40,26 +40,27 @@ public class Bookinfo implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ISBN")
-    private Long isbn;
+    private Integer isbn;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 64)
+    @Size(min = 1, max = 100)
     @Column(name = "TITLE")
     private String title;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 32)
+    @Size(min = 1, max = 64)
     @Column(name = "AUTHOR")
     private String author;
     @Basic(optional = false)
     @NotNull
     @Column(name = "PRICE")
-    private double price;
+    private int price;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 32)
+    @Size(min = 1, max = 100)
     @Column(name = "PRESS")
     private String press;
+    @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "HREF")
@@ -68,23 +69,24 @@ public class Bookinfo implements Serializable {
     public Bookinfo() {
     }
 
-    public Bookinfo(Long isbn) {
+    public Bookinfo(Integer isbn) {
         this.isbn = isbn;
     }
 
-    public Bookinfo(Long isbn, String title, String author, double price, String press) {
+    public Bookinfo(Integer isbn, String title, String author, int price, String press, String href) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.price = price;
         this.press = press;
+        this.href = href;
     }
 
     public Long getIsbn() {
-        return isbn;
+        return isbn.longValue();
     }
 
-    public void setIsbn(Long isbn) {
+    public void setIsbn(Integer isbn) {
         this.isbn = isbn;
     }
 
@@ -104,11 +106,11 @@ public class Bookinfo implements Serializable {
         this.author = author;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

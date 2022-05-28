@@ -1,4 +1,3 @@
-<%@ page import= "Book.Bookinfo" import = "Order.Orderlist"  import = "java.util.List"%>
 <%@ page language="java" import="java.util.*" contentType="text/html;charset=GB2312"%>
 <!DOCTYPE html>
 <html>

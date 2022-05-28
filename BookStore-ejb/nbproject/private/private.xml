@@ -3,13 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Netbeans/BookStore/BookStore/BookStore-ejb/src/java/Book/Bookinfo.java</file>
-            <file>file:/E:/Netbeans/BookStore/BookStore/BookStore-ejb/src/java/Book/BookinfoFacade.java</file>
-            <file>file:/E:/Netbeans/BookStore/BookStore/BookStore-ejb/src/java/Cart/NewCart.java</file>
-            <file>file:/E:/Netbeans/BookStore/BookStore/BookStore-ejb/src/java/Order/Orderlist.java</file>
-            <file>file:/E:/Netbeans/BookStore/BookStore/BookStore-ejb/src/java/User/User.java</file>
             <file>file:/E:/Netbeans/BookStore/BookStore/BookStore-ejb/src/java/Cart/NewCartLocal.java</file>
-            <file>file:/E:/Netbeans/BookStore/BookStore/BookStore-ejb/src/java/Order/OrderlistFacade.java</file>
+            <file>file:/E:/Netbeans/BookStore/BookStore/BookStore-ejb/src/java/Cart/NewCart.java</file>
         </group>
     </open-files>
 </project-private>

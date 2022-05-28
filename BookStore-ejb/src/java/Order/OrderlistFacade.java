@@ -34,26 +34,29 @@ public class OrderlistFacade extends AbstractFacade<Orderlist> implements Orderl
     public void Insert(int OrderID, Long ISBN, String Title, int Num, String Username, double Cost, String Date) {
         try{
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-            java.sql.Connection conn =	java.sql.DriverManager.getConnection("jdbc:derby://localhost:1527/BookStore", "app", "app");
-            java.sql.Statement st = conn.createStatement();
-            st.execute("insert into Orderlist values(" + OrderID + "," + ISBN + ",'" + Title + "'," +"'" + Username + "'," + Num + ","
-                    + Cost + ",'" + Date + "')" ); 
-            conn.close();
+            java.sql.Statement st;
+            try (java.sql.Connection conn = java.sql.DriverManager.getConnection("jdbc:derby://localhost:1527/NewBookStore", "app", "app")) {
+                st = conn.createStatement();
+                st.execute("insert into Orderlist values(" + OrderID + "," + ISBN + ",'" + Title + "'," +"'" + Username + "'," + Num + ","
+                        + Cost + ",'" + Date + "')" );
+            }
             st.close();
         }
-        catch(Exception e){}
+        catch(ClassNotFoundException | SQLException e){}
     }
 
     @Override
     public int GetMaxOrderID(){
          try{
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-            java.sql.Connection conn =	java.sql.DriverManager.getConnection("jdbc:derby://localhost:1527/BookStore", "app", "app");
-            java.sql.Statement st = conn.createStatement();
-            java.sql.ResultSet rs = st.executeQuery("Select MAX(orderid) from Orderlist");
-            rs.next();
-            int res = rs.getInt(1)+1;
-            conn.close();
+            java.sql.Statement st;
+             int res;
+             try (java.sql.Connection conn = java.sql.DriverManager.getConnection("jdbc:derby://localhost:1527/NewBookStore", "app", "app")) {
+                 st = conn.createStatement();
+                 java.sql.ResultSet rs = st.executeQuery("Select MAX(Orderid) from Orderlist");
+                 rs.next();
+                 res = rs.getInt(1)+1;
+             }
             st.close();
             return res;
         }

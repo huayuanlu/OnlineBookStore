@@ -9,13 +9,13 @@ package Cart;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 
 /**
  *
  * @author X
  */
-@Stateless
+@Stateful
 public class NewCart implements NewCartLocal {
     String Username;
     List<Integer> num;
@@ -63,19 +63,19 @@ public class NewCart implements NewCartLocal {
         UserCart.setUsername(Username);
         try{
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-            java.sql.Connection conn =	java.sql.DriverManager.getConnection("jdbc:derby://localhost:1527/BookStore", "app", "app");
-            java.sql.Statement st = conn.createStatement();
-            java.sql.ResultSet rs = st.executeQuery("select 书号,数量 from Cart where 用户名 = '" + Username + "'"); 
-            while(rs.next()){
-                UserCart.getISBN().add(rs.getInt(1));
-                UserCart.getNum().add(rs.getInt(2));
-            }  
-            conn.close();
+            java.sql.Statement st;
+            try (java.sql.Connection conn = java.sql.DriverManager.getConnection("jdbc:derby://localhost:1527/NewBookStore", "app", "app")) {
+                st = conn.createStatement();
+                java.sql.ResultSet rs = st.executeQuery("select ISBN,Num from Cart where Username = '" + Username + "'");
+                while(rs.next()){
+                    UserCart.getISBN().add(rs.getInt(1));
+                    UserCart.getNum().add(rs.getInt(2));
+                }
+            }
             st.close();
             return UserCart;
         }
-        catch(SQLException e){}
-        catch(ClassNotFoundException s ){}
+        catch(SQLException | ClassNotFoundException e){}
         return null;
     }
 
@@ -83,10 +83,11 @@ public class NewCart implements NewCartLocal {
     public void AddCart(String Username, int ISBN, int num) {
         try{
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-            java.sql.Connection conn =	java.sql.DriverManager.getConnection("jdbc:derby://localhost:1527/BookStore", "app", "app");
-            java.sql.Statement st = conn.createStatement();
-            st.execute("insert into Cart values(" + ISBN + ",'" + Username + "'," + num + ")"); 
-            conn.close();
+            java.sql.Statement st;
+            try (java.sql.Connection conn = java.sql.DriverManager.getConnection("jdbc:derby://localhost:1527/NewBookStore", "app", "app")) {
+                st = conn.createStatement();
+                st.execute("insert into Cart values(" + ISBN + ",'" + Username + "'," + num + ")");
+            }
             st.close();
         }
         catch(SQLException | ClassNotFoundException e){}
@@ -96,10 +97,11 @@ public class NewCart implements NewCartLocal {
     public void DeleteCart(String Username, int ISBN) {
         try{
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-            java.sql.Connection conn =	java.sql.DriverManager.getConnection("jdbc:derby://localhost:1527/BookStore", "app", "app");
-            java.sql.Statement st = conn.createStatement();
-            st.execute("delete from Cart where 书号 = " + ISBN + "and 用户名 = '" + Username + "'"); 
-            conn.close();
+            java.sql.Statement st;
+            try (java.sql.Connection conn = java.sql.DriverManager.getConnection("jdbc:derby://localhost:1527/NewBookStore", "app", "app")) {
+                st = conn.createStatement();
+                st.execute("delete from Cart where ISBN = " + ISBN + "and Username = '" + Username + "'");
+            }
             st.close();
         }
         catch(SQLException | ClassNotFoundException e){}
@@ -109,12 +111,14 @@ public class NewCart implements NewCartLocal {
     public void DeleteAll(String Username) {
         try{
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-            java.sql.Connection conn =	java.sql.DriverManager.getConnection("jdbc:derby://localhost:1527/BookStore", "app", "app");
-            java.sql.Statement st = conn.createStatement();
-            st.execute("delete from Cart where 用户名 = '" + Username + "'"); 
-            conn.close();
+            java.sql.Statement st;
+            try (java.sql.Connection conn = java.sql.DriverManager.getConnection("jdbc:derby://localhost:1527/NewBookStore", "app", "app")) {
+                st = conn.createStatement();
+                st.execute("delete from Cart where Username = '" + Username + "'");
+            }
             st.close();
         }
         catch(SQLException | ClassNotFoundException e){}
     }
+
 }

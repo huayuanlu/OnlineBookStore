@@ -7,7 +7,6 @@
 package Order;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -38,10 +35,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Orderlist.findByCost", query = "SELECT o FROM Orderlist o WHERE o.cost = :cost"),
     @NamedQuery(name = "Orderlist.findByTime", query = "SELECT o FROM Orderlist o WHERE o.time = :time")})
 public class Orderlist implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "COST")
-    private int cost;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -54,12 +47,12 @@ public class Orderlist implements Serializable {
     private int isbn;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 32)
+    @Size(min = 1, max = 100)
     @Column(name = "TITLE")
     private String title;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 32)
+    @Size(min = 1, max = 64)
     @Column(name = "USERNAME")
     private String username;
     @Basic(optional = false)
@@ -68,6 +61,11 @@ public class Orderlist implements Serializable {
     private int cartnum;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "COST")
+    private int cost;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 64)
     @Column(name = "TIME")
     private String time;
 
@@ -128,6 +126,13 @@ public class Orderlist implements Serializable {
         this.cartnum = cartnum;
     }
 
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
 
     public String getTime() {
         return time;
@@ -160,14 +165,6 @@ public class Orderlist implements Serializable {
     @Override
     public String toString() {
         return "Order.Orderlist[ orderid=" + orderid + " ]";
-    }
-
-    public int getCost() {
-        return cost;
-    }
-
-    public void setCost(int cost) {
-        this.cost = cost;
     }
     
 }

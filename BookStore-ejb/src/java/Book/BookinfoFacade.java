@@ -24,7 +24,7 @@ public class BookinfoFacade extends AbstractFacade<Bookinfo> implements Bookinfo
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
     public BookinfoFacade() {
         super(Bookinfo.class);
     }

@@ -15,7 +15,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,13 +32,14 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CtrlServlet extends HttpServlet {
 @EJB
-    private NewCartLocal cart;
-@EJB
     private UserLocal user;
+    NewCartLocal cart = lookupNewCartLocal();
 @EJB
     private BookinfoFacadeLocal bookinfoFacade;
 @EJB
     private OrderlistFacadeLocal orderlistFacade;
+
+
 @Override
     protected void doGet(  HttpServletRequest request, 
         HttpServletResponse response) throws ServletException, IOException {
@@ -84,10 +90,6 @@ public class CtrlServlet extends HttpServlet {
                     cart.AddCart(Username, ISBN, CartNum);
                 }
             }
-            else{
-                request.getSession().setAttribute("cartmessage", "请正确输入购买数量");
-                request.getRequestDispatcher("/Cart.jsp").forward(request, response);
-            }
             if(request.getParameter("delete")!=null){
                 int ISBN = Integer.parseInt(request.getParameter("ISBN"));
                 cart.DeleteCart(Username, ISBN);
@@ -133,5 +135,15 @@ public class CtrlServlet extends HttpServlet {
     protected void doPost(  HttpServletRequest request, 
         HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
+    }
+
+    private NewCartLocal lookupNewCartLocal() {
+        try {
+            Context c = new InitialContext();
+            return (NewCartLocal) c.lookup("java:global/BookStore/BookStore-ejb/NewCart!Cart.NewCartLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
     }
 }

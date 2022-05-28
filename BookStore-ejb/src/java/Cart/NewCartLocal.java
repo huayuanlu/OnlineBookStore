@@ -13,7 +13,7 @@ import javax.ejb.Local;
  * @author X
  */
 @Local
-public interface NewCartLocal { 
+public interface NewCartLocal {
     NewCart ShowCart(String Username);
 
     void AddCart(String Username, int ISBN, int num);
